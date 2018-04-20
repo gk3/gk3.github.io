@@ -12,7 +12,7 @@ var GIF = []
 var tweets = []
 var getGIF = function(){
 	var request = new XMLHttpRequest();
-	request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&tag=kanye&rating=PG-13', true);
+	request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&tag=kanye%20west&rating=R', true);
 
 	request.onload = function() {
 			if (request.status >= 200 && request.status < 400) {
