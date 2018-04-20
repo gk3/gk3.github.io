@@ -75,7 +75,8 @@ var getTweet = function(){
 				var scale = getRandomArbitrary(.8,1.5);
 	tweetContents.parentElement.setAttribute("style", "transform: translateX(-" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale  +")")
 }
-
+var audio = new Audio('../mp3/yeBtn-micro.mp3');
+audio.volume = .5
 document.addEventListener("DOMContentLoaded", function () {
   getGIF()
 
@@ -83,6 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //add event listener
   yeBtn.addEventListener('click', function(event) {
+
+			audio.play();
     getGIF()
   });
 
