@@ -29,24 +29,26 @@ request.send()
 
 var queueGIF = function () {
  console.log("queueing")
- if(GIFbank == null){
-  setTimeout(function(){ queueGIF();}, 500);
- } else{
+ if (GIFbank == null) {
+  setTimeout(function () {
+   queueGIF();
+  }, 500);
+ } else {
   if (nextGIF == null) {
-     nextGIF = {}
-        response = GIFbank();
-     console.log(response)
-     nextGIF.preview = response.images.fixed_height_small_still.url
-     nextGIF.image = new Image();
-     nextGIF.image.src = response.images.original.mp4
-     nextGIF.width = response.images.original_mp4.width
-     nextGIF.height = response.images.original_mp4.height
-     if(currentGIF == null){
-       console.log("getting second")
-        getGIF()
-     }
+   nextGIF = {}
+   response = GIFbank();
+   console.log(response)
+   nextGIF.preview = response.images.fixed_height_small_still.url
+   nextGIF.image = new Image();
+   nextGIF.image.src = response.images.original.mp4
+   nextGIF.width = response.images.original_mp4.width
+   nextGIF.height = response.images.original_mp4.height
+   if (currentGIF == null) {
+    console.log("getting second")
+    getGIF()
+   }
   }
-}
+ }
 }
 
 
@@ -65,14 +67,24 @@ var getGIF = function () {
   var gifImg = document.getElementById("gifInner")
   var gifZoom = document.getElementById("gifZoomed")
   var thresh = 20
-  var xPos = 50 + getRandomArbitrary(0, 20);
+  var xPos = getRandomArbitrary(-100, 30);
   var yPos = 50 + getRandomArbitrary(0, 20);
   var scale = getRandomArbitrary(1, 1.5)
   var color = colors()
-  gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(-" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
-   xPos -= getRandomArbitrary(20, 40);
-   yPos -= getRandomArbitrary(20, 40);
-  gifContainer2.setAttribute("style", "transform: translateX(" + -(xPos) + "%) translateY(" + -(yPos) + "%); background-color: #" + color.gif + ";")
+  var flipped = false
+  if (!Math.floor(Math.random() * 2)) {
+//   xPos *= -1
+   flipped = true
+  } 
+  gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
+//  xPos -= getRandomArbitrary(20, 40);
+  yPos = getRandomArbitrary(-60, 30);
+  if (xPos > -20) {
+   xPos = getRandomArbitrary(-100, -20);
+  } else {
+   xPos = getRandomArbitrary(-20, 30)
+  }
+  gifContainer2.setAttribute("style", "transform: translateX(" + (xPos) + "%) translateY(" + (yPos) + "%); background-color: #" + color.gif + ";")
   getTweet(color.text, xPos, yPos)
   gifImg.setAttribute('poster', currentGIF.preview)
   gifImg.setAttribute('src', currentGIF.image.src)
@@ -83,44 +95,49 @@ var getGIF = function () {
 }
 
 
-  var database = firebase.database();
+var database = firebase.database();
 
-  firebase.database().ref('/').once('value').then(function (snapshot) {
+firebase.database().ref('/').once('value').then(function (snapshot) {
 
-   tweets = randomNoRepeats(snapshot.val().tweets)
-   colors = randomNoRepeats(snapshot.val().colors)
-   console.log("getting gif")
-   getGIF()
-  });
-
-
-  var getTweet = function (color, x, y) {
-   var newTweet = tweets()
-   var tweetContents = document.getElementById("tweetContent")
-   tweetContents.innerHTML = newTweet.content
-   tweetContents.parentElement.setAttribute('href', 'https://twitter.com/kanyewest/status/' + newTweet.id)
-   tweetContents.parentElement.classList.remove("loading")
-   //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
-   var thresh = 20
-   var xPos = x + getRandomArbitrary(-50, 20);
-   var yPos = y + getRandomArbitrary(0, 20);
-   var scale = getRandomArbitrary(.8, 1.1);
-   tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
-  }
-  var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/inspire/mp3/yebtn-micro.mp3');
-  audio.volume = .5
-
-  document.addEventListener("DOMContentLoaded", function () {
+ tweets = randomNoRepeats(snapshot.val().tweets)
+ colors = randomNoRepeats(snapshot.val().colors)
+ console.log("getting gif")
+ getGIF()
+});
 
 
-   var yeBtn = document.getElementById('yeButton');
+var getTweet = function (color, x, y) {
+ var newTweet = tweets()
+ var tweetContents = document.getElementById("tweetContent")
+ tweetContents.innerHTML = newTweet.content
+ tweetContents.parentElement.setAttribute('href', 'https://twitter.com/kanyewest/status/' + newTweet.id)
+ tweetContents.parentElement.classList.remove("loading")
+ //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
+ var thresh = 20
+ if (x > -20){
+   var xPos = x + getRandomArbitrary(-100, -20);
+ } else {
+  var xPos = x + getRandomArbitrary(-20, 30);
+ }
 
-   //add event listener
-   yeBtn.addEventListener('click', function (event) {
+ var yPos = y + getRandomArbitrary(0, 60);
+ var scale = getRandomArbitrary(.8, 1.1);
+ tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
+}
+var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/mp3/yebtn-micro.mp3');
+audio.volume = .5
 
-    audio.play();
-    getGIF()
-   });
+document.addEventListener("DOMContentLoaded", function () {
 
 
-  });
+ var yeBtn = document.getElementById('yeButton');
+
+ //add event listener
+ yeBtn.addEventListener('click', function (event) {
+
+  audio.play();
+  getGIF()
+ });
+
+
+});
