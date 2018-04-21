@@ -81,11 +81,14 @@ pre{
 	font-weight: 700;
 	width: 100%;
 	font-size: 10px;
-	line-height: 12px;
+	line-height: 14px;
 	text-align: center;
 		z-index: 2;
 	position: relative;
 /*	color: black;*/
+}
+pre.top{
+ line-height: 8px;
 }
 h2{
 	font-family: 'Anonymous Pro', monospace;
