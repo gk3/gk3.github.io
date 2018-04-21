@@ -105,11 +105,11 @@ a{
 	/* Be here now. Be in t: */
 	font-family: 'Anonymous Pro', monospace;
 	font-weight: 700;
-	font-size: 36px;
+	font-size: 21px;
 	color: #1200FF;
 	letter-spacing: 0;
-	line-height: 36px;
-	max-width: 880px;
+	line-height: 21px;
+	max-width: 390px;
 	margin: 0 auto;
 	text-align: left;
 	position: absolute;
@@ -134,6 +134,8 @@ a:hover{
 	top: 50%;
 	left: 50%;
 	z-index: 1;
+     opacity: .3;
+    filter: contrast(2) saturate(0.2);
 }
 
 #gif video{
@@ -182,7 +184,7 @@ a:hover{
 
 button{
 	position: absolute;
-    bottom: 100px;
+    bottom: 40px;
 		z-index: 2;
 }
 @media (max-width: 736px) {

@@ -65,17 +65,20 @@ var getGIF = function () {
   var gifImg = document.getElementById("gifInner")
   var gifZoom = document.getElementById("gifZoomed")
   var thresh = 20
-  var xPos = 50 + getRandomArbitrary(-thresh, thresh);
-  var yPos = 50 + getRandomArbitrary(-thresh, thresh);
-  var scale = getRandomArbitrary(.8, 1.5)
+  var xPos = 50 + getRandomArbitrary(0, 20);
+  var yPos = 50 + getRandomArbitrary(0, 20);
+  var scale = getRandomArbitrary(1, 1.5)
   var color = colors()
   gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(-" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
-  gifContainer2.setAttribute("style", "background-color: #" + color.gif + ";")
-  getTweet(color.text)
+   xPos -= getRandomArbitrary(20, 40);
+   yPos -= getRandomArbitrary(20, 40);
+  gifContainer2.setAttribute("style", "transform: translateX(" + -(xPos) + "%) translateY(" + -(yPos) + "%); background-color: #" + color.gif + ";")
+  getTweet(color.text, xPos, yPos)
   gifImg.setAttribute('poster', currentGIF.preview)
   gifImg.setAttribute('src', currentGIF.image.src)
   gifZoom.setAttribute('poster', currentGIF.preview)
-  gifZoom.setAttribute('src', gifImg.src)
+  var cachebuster = Math.round(new Date().getTime() / 1000);
+  gifZoom.setAttribute('src', gifImg.src + "?cache=" + cachebuster)
  }
 }
 
@@ -91,7 +94,7 @@ var getGIF = function () {
   });
 
 
-  var getTweet = function (color) {
+  var getTweet = function (color, x, y) {
    var newTweet = tweets()
    var tweetContents = document.getElementById("tweetContent")
    tweetContents.innerHTML = newTweet.content
@@ -99,10 +102,10 @@ var getGIF = function () {
    tweetContents.parentElement.classList.remove("loading")
    //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
    var thresh = 20
-   var xPos = 50 + getRandomArbitrary(-thresh, thresh);
-   var yPos = 50 + getRandomArbitrary(-thresh, thresh);
-   var scale = getRandomArbitrary(.8, 1.5);
-   tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(-" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ")")
+   var xPos = x + getRandomArbitrary(-50, 20);
+   var yPos = y + getRandomArbitrary(0, 20);
+   var scale = getRandomArbitrary(.8, 1.1);
+   tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
   }
   var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/inspire/mp3/yebtn-micro.mp3');
   audio.volume = .5
