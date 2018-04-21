@@ -120,7 +120,7 @@ var getTweet = function (color, x, y) {
   var xPos = x + getRandomArbitrary(-20, 30);
  }
 
- var yPos = y + getRandomArbitrary(0, 60);
+ var yPos = y + getRandomArbitrary(20, 60);
  var scale = getRandomArbitrary(.8, 1.1);
  tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
 }
