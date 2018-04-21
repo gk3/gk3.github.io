@@ -13,31 +13,40 @@ var tweets = []
 var currentGIF = null
 var nextGIF = null
 
+var GIFbank = null
+
+var request = new XMLHttpRequest();
+request.open('GET', 'https://api.giphy.com/v1/gifs/search?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&q=kanye%20west&limit=150&offset=0&rating=R&lang=en', true);
+request.onload = function () {
+ if (request.status >= 200 && request.status < 400) {
+
+  response = JSON.parse(request.responseText);
+  GIFbank = randomNoRepeats(response.data)
+
+ }
+}
+request.send()
 
 var queueGIF = function () {
  console.log("queueing")
+ if(GIFbank == null){
+  setTimeout(function(){ queueGIF();}, 500);
+ } else{
   if (nextGIF == null) {
-   nextGIF = {}
-   var request = new XMLHttpRequest();
-   request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&tag=kanye%20west&rating=R', true);
-   request.onload = function () {
-    if (request.status >= 200 && request.status < 400) {
-
-     response = JSON.parse(request.responseText);
+     nextGIF = {}
+        response = GIFbank();
      console.log(response)
-     nextGIF.preview = response.data.fixed_height_small_still_url
+     nextGIF.preview = response.images.fixed_height_small_still.url
      nextGIF.image = new Image();
-     nextGIF.image.src = response.data.image_url
-     nextGIF.width = response.data.image_width
-     nextGIF.height = response.data.image_height
+     nextGIF.image.src = response.images.original.mp4
+     nextGIF.width = response.images.original_mp4.width
+     nextGIF.height = response.images.original_mp4.height
      if(currentGIF == null){
        console.log("getting second")
         getGIF()
      }
-    }
-   }
-   request.send()
   }
+}
 }
 
 
@@ -52,16 +61,21 @@ var getGIF = function () {
   nextGIF = null
   queueGIF()
   var gifContainer = document.getElementById("gif")
+  var gifContainer2 = document.getElementById("gif2")
   var gifImg = document.getElementById("gifInner")
+  var gifZoom = document.getElementById("gifZoomed")
   var thresh = 20
   var xPos = 50 + getRandomArbitrary(-thresh, thresh);
   var yPos = 50 + getRandomArbitrary(-thresh, thresh);
   var scale = getRandomArbitrary(.8, 1.5)
   var color = colors()
-  gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(-" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + "); background-color: #" + color.gif + ";")
+  gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(-" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
+  gifContainer2.setAttribute("style", "background-color: #" + color.gif + ";")
   getTweet(color.text)
-  gifImg.setAttribute('src', '')
+  gifImg.setAttribute('poster', currentGIF.preview)
   gifImg.setAttribute('src', currentGIF.image.src)
+  gifZoom.setAttribute('poster', currentGIF.preview)
+  gifZoom.setAttribute('src', gifImg.src)
  }
 }
 
