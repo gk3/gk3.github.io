@@ -73,7 +73,7 @@ firebase.database().ref('/').once('value').then(function(snapshot) {
 	tweets = randomNoRepeats(snapshot.val().tweets)
 	colors = randomNoRepeats(snapshot.val().colors)
 	console.log("getting gif")
-
+  getGIF()
 });
 
 
@@ -82,6 +82,7 @@ var getTweet = function(color){
 	var tweetContents = document.getElementById("tweetContent")
 	tweetContents.innerHTML = newTweet.content
 	tweetContents.parentElement.setAttribute('href', 'https://twitter.com/kanyewest/status/' + newTweet.id)
+	tweetContents.parentElement.classList.remove("loading")
 //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
 					var thresh = 20
 				var xPos = 50 + getRandomArbitrary(-thresh, thresh);
@@ -93,7 +94,7 @@ var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/inspire/m
 audio.volume = .5
 
 document.addEventListener("DOMContentLoaded", function () {
-  getGIF()
+
 
 	var yeBtn = document.getElementById('yeButton');
 
@@ -109,17 +110,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-var anotherOne = debounce(function () {
-  var headline = document.querySelector('h1')
-
-  headline.classList.add('intro')
-  var rand = list()
-  var url = rand.get('file').url()
-  var img = rand.get('img').url()
-  makeHeadlines(rand.get('text'))
-  var audio = document.querySelector('audio');
-  var ig = document.querySelector('#ig')
-  ig.setAttribute('href', img)
-  audio.setAttribute('src', url)
-  audio.play()
-}, 100, true)
