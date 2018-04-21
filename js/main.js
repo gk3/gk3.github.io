@@ -16,11 +16,12 @@ var nextGIF = null
 var GIFbank = null
 
 var request = new XMLHttpRequest();
-request.open('GET', 'https://api.giphy.com/v1/gifs/search?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&q=kanye%20west&limit=150&offset=0&rating=R&lang=en', true);
+request.open('GET', 'https://api.giphy.com/v1/gifs/search?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&q=kanye%20west&limit=200&offset=0&rating=R&lang=en', true);
 request.onload = function () {
  if (request.status >= 200 && request.status < 400) {
 
   response = JSON.parse(request.responseText);
+  console.log(response)
   GIFbank = randomNoRepeats(response.data)
 
  }
@@ -66,6 +67,7 @@ var getGIF = function () {
   var gifContainer2 = document.getElementById("gif2")
   var gifImg = document.getElementById("gifInner")
   var gifZoom = document.getElementById("gifZoomed")
+  var scroll = document.querySelector("div.scroll")
   var thresh = 20
   var xPos = getRandomArbitrary(-100, 30);
   var yPos = 50 + getRandomArbitrary(0, 20);
@@ -91,6 +93,7 @@ var getGIF = function () {
   gifZoom.setAttribute('poster', currentGIF.preview)
   var cachebuster = Math.round(new Date().getTime() / 1000);
   gifZoom.setAttribute('src', gifImg.src + "?cache=" + cachebuster)
+  scroll.setAttribute("style", "height:" + getRandomArbitrary(50,200) + "px; transform: translateX(" + getRandomArbitrary(-300, 300) + "px) translateY(" + getRandomArbitrary(-60, -40) + "%)")
  }
 }
 
@@ -124,7 +127,7 @@ var getTweet = function (color, x, y) {
  var scale = getRandomArbitrary(.8, 1.1);
  tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
 }
-var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/mp3/yebtn-micro.mp3');
+var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/mp3/ye-fade.mp3');
 audio.volume = .5
 
 document.addEventListener("DOMContentLoaded", function () {
