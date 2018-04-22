@@ -15,6 +15,11 @@ var nextGIF = null
 var updated = null
 var GIFbank = null
 
+var isMobile = function () {
+ return (window.innerWidth < 756)
+}
+
+
 var request = new XMLHttpRequest();
 request.open('GET', 'https://api.giphy.com/v1/gifs/search?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&q=kanye%20west&limit=200&offset=0&rating=R&lang=en', true);
 request.onload = function () {
@@ -70,6 +75,9 @@ var getGIF = function () {
   var scroll = document.querySelector("div.scroll")
   var thresh = 20
   var xPos = getRandomArbitrary(-100, 30);
+  if (isMobile) {
+   xPos = getRandomArbitrary(-60, 5);
+  }
   var yPos = 50 + getRandomArbitrary(0, 20);
   var scale = getRandomArbitrary(1, 1.5)
   var color = colors()
@@ -80,11 +88,23 @@ var getGIF = function () {
   }
   gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
   //  xPos -= getRandomArbitrary(20, 40);
+  if(isMobile){
+   yPos = getRandomArbitrary(-70, 10);
+  }else {
   yPos = getRandomArbitrary(-60, 30);
+  }
   if (xPos > -20) {
-   xPos = getRandomArbitrary(-100, -20);
+   if (isMobile) {
+    xPos = getRandomArbitrary(-60, -30);
+   } else {
+    xPos = getRandomArbitrary(-100, -20);
+   }
   } else {
-   xPos = getRandomArbitrary(-20, 30)
+   if (isMobile) {
+    xPos = getRandomArbitrary(-30, 5);
+   } else {
+    xPos = getRandomArbitrary(-20, 30)
+   }
   }
   gifContainer2.setAttribute("style", "transform: translateX(" + (xPos) + "%) translateY(" + (yPos) + "%); background-color: #" + color.gif + ";")
   getTweet(color.text, xPos, yPos)
@@ -127,22 +147,22 @@ var getTweet = function (color, x, y) {
   })
   firstTweet = true;
  }
-if(window.innerWidth	> 756){
+ if (isMobile) {
 
 
- //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
- var thresh = 20
- if (x > -20) {
-  var xPos = x + getRandomArbitrary(-100, -20);
- } else {
-  var xPos = x + getRandomArbitrary(-20, 30);
+  //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
+  var thresh = 20
+  if (x > -20) {
+   var xPos = x + getRandomArbitrary(-100, -20);
+  } else {
+   var xPos = x + getRandomArbitrary(-20, 30);
+  }
+
+  var yPos = y + getRandomArbitrary(20, 60);
+  var scale = getRandomArbitrary(.8, 1.1);
+  tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
  }
-
- var yPos = y + getRandomArbitrary(20, 60);
- var scale = getRandomArbitrary(.8, 1.1);
- tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
 }
- }
 
 
 

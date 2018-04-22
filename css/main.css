@@ -309,8 +309,7 @@ div.scroll {
  }
  
  .tweet span{
-      font-size: 26px;
-    line-height: 26px;
+      font-size: 24px;
  }
  pre.top {
   font-size: 6px;
@@ -332,6 +331,7 @@ h2.left{
     text-align: center;
     bottom: 27px;
     padding: 0;
+ opacity: .7;
 }
 h2.right{
 
@@ -339,6 +339,7 @@ h2.right{
     text-align: center;
     padding: 0;
  bottom: 14px;
+ opacity: .7;
 }
 }
 
