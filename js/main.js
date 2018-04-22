@@ -60,6 +60,7 @@ var queueGIF = function () {
 
 var getGIF = function () {
  console.log(nextGIF)
+
  if (nextGIF == null) {
   console.log("queueing first")
   queueGIF()
@@ -170,10 +171,25 @@ audio.volume = .5
 document.addEventListener("DOMContentLoaded", function () {
  var yeBtn = document.getElementById('yeButton');
 
+ 
+ var topper = document.querySelectorAll("pre span")
+  topper.forEach(function (el, i) {
+   el.setAttribute('style', 'animation-delay:' + (.05 * i) + "s")
+  })
  yeBtn.addEventListener('click', function (event) {
 
   audio.play();
   getGIF()
+  var topContainer = document.querySelectorAll('pre')
+  topContainer.forEach(function(el){
+   el.classList.add("animate")
+  })
+  setTimeout(function(){
+  var topContainer = document.querySelectorAll('pre')
+  topContainer.forEach(function(el){
+   el.classList.remove("animate")
+  })
+  }, 2000)
  });
 
 document.body.onkeyup = function(e){
