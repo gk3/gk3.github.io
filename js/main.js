@@ -75,7 +75,7 @@ var getGIF = function () {
   var scroll = document.querySelector("div.scroll")
   var thresh = 20
   var xPos = getRandomArbitrary(-100, 30);
-  if (isMobile) {
+  if (isMobile()) {
    xPos = getRandomArbitrary(-60, 5);
   }
   var yPos = 50 + getRandomArbitrary(0, 20);
@@ -88,19 +88,19 @@ var getGIF = function () {
   }
   gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
   //  xPos -= getRandomArbitrary(20, 40);
-  if(isMobile){
+  if(isMobile()){
    yPos = getRandomArbitrary(-70, 10);
   }else {
   yPos = getRandomArbitrary(-60, 30);
   }
   if (xPos > -20) {
-   if (isMobile) {
+   if (isMobile()) {
     xPos = getRandomArbitrary(-60, -30);
    } else {
     xPos = getRandomArbitrary(-100, -20);
    }
   } else {
-   if (isMobile) {
+   if (isMobile()) {
     xPos = getRandomArbitrary(-30, 5);
    } else {
     xPos = getRandomArbitrary(-20, 30)
@@ -147,7 +147,7 @@ var getTweet = function (color, x, y) {
   })
   firstTweet = true;
  }
- if (!isMobile) {
+ if (!isMobile()) {
 
 
   //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
