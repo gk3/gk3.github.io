@@ -216,7 +216,7 @@ a{
 button {
  position: absolute;
  bottom: 40px;
- z-index: 2;
+ z-index: 333;
  width: 80px;
  height: 79px;
  background-color: transparent;
@@ -297,7 +297,21 @@ div.scroll {
     left: -2px;
 }
 @media (max-width: 756px) {
+ a.tweet{
+  position: absolute;
+    top: 160px;
+    width: 100%;
+    max-width: 100%;
+    transform: none !important;
+    left: 0;
+    padding: 24px;
+  font-size: 18px;
+ }
  
+ .tweet span{
+      font-size: 26px;
+    line-height: 26px;
+ }
  pre.top {
   font-size: 6px;
   line-height: 5px;
