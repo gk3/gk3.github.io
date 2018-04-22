@@ -147,7 +147,7 @@ var getTweet = function (color, x, y) {
   })
   firstTweet = true;
  }
- if (isMobile) {
+ if (!isMobile) {
 
 
   //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
@@ -161,6 +161,8 @@ var getTweet = function (color, x, y) {
   var yPos = y + getRandomArbitrary(20, 60);
   var scale = getRandomArbitrary(.8, 1.1);
   tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
+ } else {
+  tweetContents.parentElement.setAttribute("style", "color: #" + color + ";")
  }
 }
 
