@@ -1,3 +1,16 @@
+var request = new XMLHttpRequest();
+request.open('GET', 'https://api.giphy.com/v1/gifs/search?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&q=kanye%20west&limit=200&offset=0&rating=R&lang=en', true);
+request.onload = function () {
+ if (request.status >= 200 && request.status < 400) {
+
+  response = JSON.parse(request.responseText);
+  console.log(response)
+  GIFbank = randomNoRepeats(response.data)
+
+ }
+}
+request.send()
+
 var config = {
  apiKey: "AIzaSyAoNWwsp9RaarHBeKwyl7diDA3VfUT-sGw",
  authDomain: "inspireme-8655c.firebaseapp.com",
@@ -19,19 +32,6 @@ var isMobile = function () {
  return (window.innerWidth < 756)
 }
 
-
-var request = new XMLHttpRequest();
-request.open('GET', 'https://api.giphy.com/v1/gifs/search?api_key=er6a877s34lCzAE3fK3czrKploSgnomp&q=kanye%20west&limit=200&offset=0&rating=R&lang=en', true);
-request.onload = function () {
- if (request.status >= 200 && request.status < 400) {
-
-  response = JSON.parse(request.responseText);
-  console.log(response)
-  GIFbank = randomNoRepeats(response.data)
-
- }
-}
-request.send()
 
 var queueGIF = function () {
  console.log("queueing")
@@ -74,6 +74,7 @@ var getGIF = function () {
   var gifZoom = document.getElementById("gifZoomed")
   var scroll = document.querySelector("div.scroll")
   var thresh = 20
+  
   var xPos = getRandomArbitrary(-100, 30);
   if (isMobile()) {
    xPos = getRandomArbitrary(-60, 5);
@@ -83,15 +84,15 @@ var getGIF = function () {
   var color = colors()
   var flipped = false
   if (!Math.floor(Math.random() * 2)) {
-   //   xPos *= -1
    flipped = true
   }
+  
   gifContainer.setAttribute("style", "width:" + currentGIF.width + "px; height:" + currentGIF.height + "px; transform: translateX(" + xPos + "%) translateY(-" + yPos + "%) scale(" + scale + ");")
-  //  xPos -= getRandomArbitrary(20, 40);
-  if(isMobile()){
+  
+  if (isMobile()) {
    yPos = getRandomArbitrary(-70, 10);
-  }else {
-  yPos = getRandomArbitrary(-60, 30);
+  } else {
+   yPos = getRandomArbitrary(-60, 30);
   }
   if (xPos > -20) {
    if (isMobile()) {
@@ -106,6 +107,7 @@ var getGIF = function () {
     xPos = getRandomArbitrary(-20, 30)
    }
   }
+  
   gifContainer2.setAttribute("style", "transform: translateX(" + (xPos) + "%) translateY(" + (yPos) + "%); background-color: #" + color.gif + ";")
   getTweet(color.text, xPos, yPos)
   gifImg.setAttribute('poster', currentGIF.preview)
@@ -121,14 +123,10 @@ var getGIF = function () {
 var database = firebase.database();
 
 firebase.database().ref('/').once('value').then(function (snapshot) {
-
  tweets = randomNoRepeats(snapshot.val().tweets)
  colors = randomNoRepeats(snapshot.val().colors)
  updated = snapshot.val().updated
-
  document.getElementById("date").innerHTML = updated
-
- console.log("getting gif")
  getGIF()
 });
 
@@ -139,7 +137,7 @@ var getTweet = function (color, x, y) {
  var tweetContents = document.getElementById("tweetContent")
  tweetContents.innerHTML = newTweet.content
  tweetContents.parentElement.setAttribute('href', 'https://twitter.com/kanyewest/status/' + newTweet.id)
- // tweetContents.parentElement.classList.remove("loading")
+
  if (!firstTweet) {
   var loading = document.querySelectorAll(".loading")
   loading.forEach(function (el) {
@@ -147,9 +145,8 @@ var getTweet = function (color, x, y) {
   })
   firstTweet = true;
  }
+ 
  if (!isMobile()) {
-
-
   //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
   var thresh = 20
   if (x > -20) {
@@ -157,7 +154,6 @@ var getTweet = function (color, x, y) {
   } else {
    var xPos = x + getRandomArbitrary(-20, 30);
   }
-
   var yPos = y + getRandomArbitrary(20, 60);
   var scale = getRandomArbitrary(.8, 1.1);
   tweetContents.parentElement.setAttribute("style", "color: #" + color + "; transform: translateX(" + xPos + "%) translateY(" + yPos + "%) scale(" + scale + ")")
@@ -172,16 +168,18 @@ var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/mp3/ye-fa
 audio.volume = .5
 
 document.addEventListener("DOMContentLoaded", function () {
-
-
  var yeBtn = document.getElementById('yeButton');
 
- //add event listener
  yeBtn.addEventListener('click', function (event) {
 
   audio.play();
   getGIF()
  });
 
-
+document.body.onkeyup = function(e){
+    if (e.keyCode === 32 || e.key === ' '){
+     getGIF()
+    }
+}
 });
+
