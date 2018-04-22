@@ -85,6 +85,7 @@ pre {
  z-index: 2;
  position: relative;
  /*	color: black;*/
+ overflow: hidden;
 }
 
 pre.top {
@@ -142,8 +143,8 @@ a span {
  font-size: 21px;
 }
 
-a.loading {
- visibility: hidden;
+.loading {
+ opacity: 0;
 }
 
 a:hover {
@@ -295,7 +296,37 @@ div.scroll {
     background-size: contain;
     left: -2px;
 }
-@media (max-width: 736px) {}
+@media (max-width: 756px) {
+ 
+ pre.top {
+  font-size: 6px;
+  line-height: 5px;
+ }
+ 
+ h2 {
+
+    width: 100%;
+    bottom: 40px;
+}
+
+button {
+bottom: 60px;
+}
+
+h2.left{
+    width: 100%;
+    text-align: center;
+    bottom: 27px;
+    padding: 0;
+}
+h2.right{
+
+    width: 100%;
+    text-align: center;
+    padding: 0;
+ bottom: 14px;
+}
+}
 
 
 /* ==========================================================================

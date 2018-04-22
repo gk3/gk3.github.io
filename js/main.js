@@ -12,7 +12,7 @@ var GIF = []
 var tweets = []
 var currentGIF = null
 var nextGIF = null
-
+var updated = null
 var GIFbank = null
 
 var request = new XMLHttpRequest();
@@ -104,6 +104,10 @@ firebase.database().ref('/').once('value').then(function (snapshot) {
 
  tweets = randomNoRepeats(snapshot.val().tweets)
  colors = randomNoRepeats(snapshot.val().colors)
+ updated = snapshot.val().updated
+ 
+ document.getElementById("date").innerHTML = updated
+ 
  console.log("getting gif")
  getGIF()
 });
@@ -114,7 +118,11 @@ var getTweet = function (color, x, y) {
  var tweetContents = document.getElementById("tweetContent")
  tweetContents.innerHTML = newTweet.content
  tweetContents.parentElement.setAttribute('href', 'https://twitter.com/kanyewest/status/' + newTweet.id)
- tweetContents.parentElement.classList.remove("loading")
+// tweetContents.parentElement.classList.remove("loading")
+ var loading = document.querySelectorAll(".loading")
+ loading.forEach(function(el) {
+  el.classList.remove("loading")
+})
  //	tweetContents.parentElement.setAttribute('style', 'color: #' + color + ";")
  var thresh = 20
  if (x > -20){
