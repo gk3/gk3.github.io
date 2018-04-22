@@ -226,7 +226,7 @@ button {
  background-color: transparent;
  border: none;
  font-family: "Anonymous Pro", monospace;
- font-size: 28px;
+ font-size: 24px;
  font-weight: 700;
  left: 50%;
  transform: translatex(-50%);
@@ -247,9 +247,9 @@ button:before {
  content: "HIT THE";
  position: absolute;
  width: 110px;
- text-align: center;
+ text-align: right;
  left: -130px;
- top: 20px;
+ top: 23px;
  color: white;
 }
 
@@ -257,10 +257,11 @@ button:after {
  content: "BUTTON";
  position: absolute;
  width: 110px;
- text-align: center;
+ text-align: left;
  right: -130px;
- top: 20px;
+ top: 23px;
  color: white;
+ letter-spacing: 2.2px;
 }
 
 div.scroll {
@@ -284,7 +285,7 @@ div.scroll {
  width: 15px;
  height: 22px;
  position: absolute;
- top: 0;
+ top: -2px;
  background-image: url(../img/scroll-top.jpg);
  background-size: contain;
  left: -2px;
@@ -296,7 +297,7 @@ div.scroll {
  width: 15px;
  height: 16px;
  position: absolute;
- bottom: 0;
+ bottom: -2px;
  background-image: url(../img/scroll-bottom.jpg);
  background-size: contain;
  left: -2px;
