@@ -32,7 +32,20 @@ var isMobile = function () {
  return (window.innerWidth < 756)
 }
 
-
+var ultralightbeam = function(){
+ console.log("we on an ultralight beam")
+ var topContainer = document.querySelectorAll('pre')
+  topContainer.forEach(function(el){
+   el.classList.add("animate")
+  })
+  setTimeout(function(){
+  var topContainer = document.querySelectorAll('pre')
+  topContainer.forEach(function(el){
+   el.classList.remove("animate")
+  })
+  }, 2000)
+}
+             
 var queueGIF = function () {
  console.log("queueing")
  if (GIFbank == null) {
@@ -180,21 +193,14 @@ document.addEventListener("DOMContentLoaded", function () {
 audio.volume = .05
   audio.play();
   getGIF()
-  var topContainer = document.querySelectorAll('pre')
-  topContainer.forEach(function(el){
-   el.classList.add("animate")
-  })
-  setTimeout(function(){
-  var topContainer = document.querySelectorAll('pre')
-  topContainer.forEach(function(el){
-   el.classList.remove("animate")
-  })
-  }, 2000)
+  ultralightbeam()
+
  });
 
 document.body.onkeyup = function(e){
     if (e.keyCode === 32 || e.key === ' '){
      getGIF()
+     ultralightbeam()
     }
 }
 });
