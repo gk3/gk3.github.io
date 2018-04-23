@@ -166,7 +166,7 @@ var getTweet = function (color, x, y) {
 
 
 var audio = new Audio('https://github.com/gk3/gk3.github.io/raw/master/mp3/ye-fade.mp3');
-audio.volume = .5
+
 
 document.addEventListener("DOMContentLoaded", function () {
  var yeBtn = document.getElementById('yeButton');
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
    el.setAttribute('style', 'animation-delay:' + (.05 * i) + "s")
   })
  yeBtn.addEventListener('click', function (event) {
-
+audio.volume = .05
   audio.play();
   getGIF()
   var topContainer = document.querySelectorAll('pre')

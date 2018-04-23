@@ -60,7 +60,8 @@ textarea {
    ========================================================================== */
 
 * {
- box-sizing: border-box;
+ -webkit-box-sizing: border-box;
+         box-sizing: border-box;
  -webkit-font-smoothing: antialiased;
  text-rendering: optimizeLegibility;
 }
@@ -115,10 +116,18 @@ h2.left {
  padding-left: 13px;
 }
 
+h2.left a{
+ cursor: help;
+}
+
 h2.right {
  left: auto;
  text-align: right;
  padding-right: 13px;
+}
+
+h2.right a{
+ cursor: alias;
 }
 
 a.tweet {
@@ -134,11 +143,14 @@ a.tweet {
  text-align: left;
  position: absolute;
  top: 50%;
- transform: perspective(1px) translateY(-50%) translateX(-50%);
+ -webkit-transform: perspective(1px) translateY(-50%) translateX(-50%);
+         transform: perspective(1px) translateY(-50%) translateX(-50%);
  left: 50%;
  width: 100%;
  text-decoration: none;
  z-index: 3;
+ -webkit-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
+ -o-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
  transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
  min-height: 100px;
 }
@@ -166,7 +178,10 @@ a {
  left: 50%;
  z-index: 1;
  opacity: .3;
- filter: contrast(2) saturate(0.05);
+ -webkit-filter: contrast(2) saturate(0.05);
+         filter: contrast(2) saturate(0.05);
+ -webkit-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
+ -o-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
  transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
 }
 
@@ -184,15 +199,20 @@ a {
  overflow: hidden;
  width: 390px;
  height: 221px;
+ -webkit-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
+ -o-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
  transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 #gif2 video {
- filter: brightness(2.55) saturate(0) contrast(0.7);
+ -webkit-filter: brightness(2.55) saturate(0) contrast(0.7);
+         filter: brightness(2.55) saturate(0) contrast(0.7);
  width: 100%;
  height: 100%;
  /* object-fit: cover;*/
- transform: scale(3);
+ -webkit-transform: scale(3);
+     -ms-transform: scale(3);
+         transform: scale(3);
 }
 
 #gif2:before {
@@ -229,7 +249,9 @@ button {
  font-size: 24px;
  font-weight: 700;
  left: 50%;
- transform: translatex(-50%);
+ -webkit-transform: translatex(-50%);
+     -ms-transform: translatex(-50%);
+         transform: translatex(-50%);
  background-image: url(../img/circle.png);
  background-size: contain;
  background-repeat: no-repeat;
@@ -272,10 +294,14 @@ div.scroll {
  background: #EDEDED;
  border: 2px solid #000000;
  position: absolute;
+ -webkit-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
+ -o-transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
  transition: 600ms cubic-bezier(0.77, 0, 0.175, 1);
  left: 50%;
  top: 50%;
- transform: translateX(-50%) translateY(-50%);
+ -webkit-transform: translateX(-50%) translateY(-50%);
+     -ms-transform: translateX(-50%) translateY(-50%);
+         transform: translateX(-50%) translateY(-50%);
  z-index: 1;
 }
 
@@ -301,6 +327,36 @@ div.scroll {
  background-image: url(../img/scroll-bottom.jpg);
  background-size: contain;
  left: -2px;
+}
+
+@-webkit-keyframes rainbow {
+ from {
+  color: rgb(255, 255, 255);
+ }
+ 8% {
+  color: rgb(255, 0, 0);
+ }
+ 16.6% {
+  color: rgb(255, 0, 255);
+ }
+ 33.3% {
+  color: rgb(0, 0, 255);
+ }
+ 50% {
+  color: rgb(0, 255, 255);
+ }
+ 66.6% {
+  color: rgb(0, 255, 0);
+ }
+ 83.3% {
+  color: rgb(255, 255, 0);
+ }
+ 93 {
+  color: rgb(255, 0, 0);
+ }
+ to {
+  color: rgb(255, 255, 255);
+ }
 }
 
 @keyframes rainbow {
@@ -334,7 +390,8 @@ div.scroll {
 }
 
 .animate span {
-  animation: rainbow .75s linear;
+  -webkit-animation: rainbow .75s linear;
+          animation: rainbow .75s linear;
  }
 
 @media (max-width: 756px) {
@@ -346,7 +403,9 @@ div.scroll {
   top: 126px;
   width: 100%;
   max-width: 100%;
-  transform: none !important;
+  -webkit-transform: none !important;
+      -ms-transform: none !important;
+          transform: none !important;
   left: 0;
   padding: 24px;
   font-size: 18px;
@@ -375,7 +434,7 @@ div.scroll {
   text-align: center;
   bottom: 27px;
   padding: 0;
-  opacity: .7;
+color: rgba(255,255,255,.7);
  }
  h2.right {
 
@@ -383,7 +442,10 @@ div.scroll {
   text-align: center;
   padding: 0;
   bottom: 14px;
-  opacity: .7;
+color: rgba(255,255,255,.7);
+ }
+ h2 a{
+  color: white;
  }
 }
 
